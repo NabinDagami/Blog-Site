@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+     <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/static/img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{ details.name }}</h1>
+                        <span class="meta">Email: {{ details.email }}</span>
+                        <br>
+                        <span class="meta">Address: {{ details.address }}</span>
+                        <br>
+                        <span class="meta">Joined on {{ details.added_at }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>
+                        {% autoescape off %}
+                        {{ details.bio }}
+                        {% endautoescape %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+{% endblock %}

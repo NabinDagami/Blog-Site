@@ -1,0 +1,29 @@
+/* Add your styles for messages */
+.message-section {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.messages {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;  /* Adjust margin as needed */
+    border-radius: 5px;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.message.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #3c763d;
+}

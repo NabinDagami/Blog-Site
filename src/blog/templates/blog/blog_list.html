@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/static/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>My Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="message-section">
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li class="message {{ message.tags }}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'blog:add-blog' %}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Add Blog</button>
+                </a>
+                <!-- Rest of your template content -->
+                
+            </div>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                {% for blog in blog_pages %}
+                <div class="post-preview">
+                    <a href="{% url 'blog:blog-detail' blog.id %}">
+                        <h2 class="post-title">
+                            {{ blog.title }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                            {% autoescape off %}
+                            {{ blog.snippet }}
+                            {% endautoescape %}
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="{% url 'blog:author-detail' blog.author.id%}">{{ blog.author }}</a> on {{ blog.created_at }}</p>
+                </div>
+                <a href="{% url 'blog:update-blog' blog.id %}"><button type="button" class="btn btn-primary btn-sm">Update</button></a>
+                <a href="{% url 'blog:delete-blog' blog.id %}"><button type="button" class="btn btn-danger btn-sm">Delete</button></a>
+                <hr>
+                {% endfor %}
+                <!-- Pager -->
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if blog_pages.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ blog_pages.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+        
+                        <li class="page-item disabled"><a class="page-link" href="#" style="pointer-events: none">
+                            Page {{ blog_pages.number }} of {{ blog_pages.paginator.num_pages }}
+                        </a></li>
+        
+                        {% if blog_pages.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ blog_pages.next_page_number }}">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ blog_pages.paginator.num_pages }}">Last</a></li>
+                        {% endif %}
+                    </ul>
+                  </nav>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+{% endblock %}
